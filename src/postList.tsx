@@ -7,7 +7,8 @@ import {
   RichTextField,
   EditButton,
    TopToolbar,
-   ReferenceField 
+   ReferenceField,
+   DeleteButton 
 } from 'react-admin';
 import Button from '@mui/material/Button';
 
@@ -17,6 +18,8 @@ export const PostList = () => (
           <TextField source="id" />
           <TextField source="title" />
           <ReferenceField source="userId" reference="users" link="show"/> {/*Link to userList for users */}
+          <EditButton/>
+          <DeleteButton />
       </Datagrid>
   </List>
 );
