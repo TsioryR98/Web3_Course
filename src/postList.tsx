@@ -6,45 +6,45 @@ import {
   TextField,
   RichTextField,
   EditButton,
-   TopToolbar,
-   ReferenceField,
-   DeleteButton 
-} from 'react-admin';
-import Button from '@mui/material/Button';
+  TopToolbar,
+  ReferenceField,
+  DeleteButton,
+} from "react-admin";
+import Button from "@mui/material/Button";
 
 export const PostList = () => (
   <List>
-      <Datagrid>
-          <TextField source="id" />
-          <TextField source="title" />
-          <ReferenceField source="userId" reference="users" link="show"/> {/*Link to userList for users */}
-          <EditButton/>
-          <DeleteButton />
-      </Datagrid>
+    <Datagrid>
+      <TextField source="id" />
+      <TextField source="title" />
+      <ReferenceField source="userId" reference="users" link="show" />{" "}
+      {/*Link to userList for users */}
+      <EditButton />
+      <DeleteButton />
+    </Datagrid>
   </List>
 );
 const PostShowActions = () => (
   <TopToolbar>
-      <EditButton />
-      {/* Add your custom actions */}
-      <Button color="primary">Custom Action</Button>
+    <EditButton />
+    {/* Add your custom actions */}
+    <Button color="primary">Custom Action</Button>
   </TopToolbar>
 );
 
 export const PostShow = () => (
-  <Show actions={<PostShowActions/>}>
-      <SimpleShowLayout>
-          <TextField source="id" />
-          <TextField source="title" />
-          <RichTextField source="body" />
-      </SimpleShowLayout>
+  <Show actions={<PostShowActions />}>
+    <SimpleShowLayout>
+      <TextField source="id" />
+      <TextField source="title" />
+      <RichTextField source="body" />
+    </SimpleShowLayout>
   </Show>
 );
 
-{/**
+{
+  /**
  
-
-
     create: async function <RecordType>(
     resource: string,
     params: CreateParams
@@ -74,6 +74,5 @@ export const PostShow = () => (
       throw error; 
   },
 
-
-  
-  */}
+  */
+}
