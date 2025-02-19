@@ -103,5 +103,5 @@ export const dataProvider: DataProvider = {
     } catch (error) {
       throw error;
     }
-  }
+  },
 };
