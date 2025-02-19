@@ -86,5 +86,31 @@ export const userDataProvider: DataProvider = {
     }
 
   },
+  create: async function <RecordType extends Omit<RaRecord, 'id'> = UserRecord,
+    ResultRecordType extends RaRecord = RecordType & { id: Identifier }>(
+      resource: string,
+      params: CreateParams
+    ): Promise<CreateResult<ResultRecordType>> { //ResultRecordType for save data
+    try {
+      const { data } = params;
+      const createdPost = await fetch(`https://jsonplaceholder.typicode.com/users`,
+        {
+          method: `POST`,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const responseData = await createdPost.json() as UserRecord;
+      const result: CreateResult = {
+        data: responseData as UserRecord,
+      };
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  },
+
 
 };
