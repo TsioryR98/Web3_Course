@@ -68,4 +68,49 @@ export const userDataProvider: DataProvider = {
       throw error;
     };
   },
+  getOne: async function <RecordType extends RaRecord = UserRecord>(
+    resource: string,
+    params: GetOneParams<RecordType> & QueryFunctionContext
+  ): Promise<GetOneResult<RecordType>> { //RecordType for getting the data from db
+    try {
+      const { id } = params;
+      const data = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+        method: `GET`
+      });
+      const result: GetOneResult = {
+        data: await data.json() as UserRecord
+      }
+      return result;
+    } catch (error) {
+      throw error;
+    }
+
+  },
+  create: async function <RecordType extends Omit<RaRecord, 'id'> = UserRecord,
+    ResultRecordType extends RaRecord = RecordType & { id: Identifier }>(
+      resource: string,
+      params: CreateParams
+    ): Promise<CreateResult<ResultRecordType>> { //ResultRecordType for save data
+    try {
+      const { data } = params;
+      const createdPost = await fetch(`https://jsonplaceholder.typicode.com/users`,
+        {
+          method: `POST`,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const responseData = await createdPost.json() as UserRecord;
+      const result: CreateResult = {
+        data: responseData as UserRecord,
+      };
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+
 };
