@@ -23,7 +23,7 @@ export const PostList = () => (
     <Datagrid>
       <TextField source="id" />
       <TextField source="title" />
-      <ReferenceField source="userId" reference="users" link="show" />{" "}
+      <ReferenceField source="userId" reference="users" link="show" /> {/*link to User for post  */}
       {/*Link to userList for users */}
       <EditButton />
       <DeleteButton />

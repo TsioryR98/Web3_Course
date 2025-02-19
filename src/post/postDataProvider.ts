@@ -9,6 +9,7 @@ import {
   Identifier,
   RaRecord,
   QueryFunctionContext,
+  useNotify
 } from "react-admin";
 
 type PostRecord = {
@@ -18,7 +19,7 @@ type PostRecord = {
   body: string;
 };
 
-export const dataProvider: DataProvider = {
+export const postDataProvider: DataProvider = {
   getList: async function <RecordType extends RaRecord = PostRecord>(
     resource: string,
     params: GetListParams & QueryFunctionContext,
@@ -84,6 +85,7 @@ export const dataProvider: DataProvider = {
       resource: string,
       params: CreateParams
     ): Promise<CreateResult<ResultRecordType>> { //ResultRecordType for save data
+    const notify = useNotify();
     try {
       const { data } = params;
       const createdPost = await fetch(`https://jsonplaceholder.typicode.com/posts`,
@@ -96,11 +98,13 @@ export const dataProvider: DataProvider = {
         }
       );
       const responseData = await createdPost.json() as PostRecord;
+      notify('Item created successfully!', { type: 'success' });
       const result: CreateResult = {
         data: responseData as PostRecord,
       };
       return result;
     } catch (error) {
+      notify('Error creating item', { type: 'error' });
       throw error;
     }
   },

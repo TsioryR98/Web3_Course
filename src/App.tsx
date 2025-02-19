@@ -7,9 +7,9 @@ import {
 import PostIcon from "@mui/icons-material/Book";
 import UserIcon from "@mui/icons-material/Group";
 import { UserList } from "./user/userList";
-import { dataProvider } from "./post/data-Provider";
+import { dataProvider } from "./combinedDataProvider";
 import { PostList, PostShow, PostCreate } from "./post/postList";
-import { UserCreate,UserShow } from "./user/userList";
+import { UserCreate, UserShow } from "./user/userList";
 
 export const App = () => (
   <Admin dataProvider={dataProvider}>
