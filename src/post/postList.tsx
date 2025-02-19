@@ -9,6 +9,12 @@ import {
   TopToolbar,
   ReferenceField,
   DeleteButton,
+  Create,
+  TextInput,
+  NumberInput,
+  BooleanInput,
+  SimpleForm
+
 } from "react-admin";
 import Button from "@mui/material/Button";
 
@@ -40,6 +46,17 @@ export const PostShow = () => (
       <RichTextField source="body" />
     </SimpleShowLayout>
   </Show>
+);
+
+export const PostCreate = () => (
+  <Create>
+    <SimpleForm>
+      <TextInput source='title' />
+      <TextInput source='body' multiline={true} label='Short body' />
+      <BooleanInput source='bool' label='Short body' />
+      <NumberInput source='bool' label='Short body' />
+    </SimpleForm>
+  </Create>
 );
 
 {
