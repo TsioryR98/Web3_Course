@@ -83,7 +83,7 @@ export const dataProvider: DataProvider = {
         ResultRecordType extends RaRecord = RecordType & { id: Identifier }>(
             resource: string,
             params : CreateParams        
-    ): Promise<CreateParams<ResultRecordType>>{ //ResultRecordType for save data
+    ): Promise<CreateResult<ResultRecordType>>{ //ResultRecordType for save data
         try {
             const { data } = params;
             const createdPost = await fetch(`https://jsonplaceholder.typicode.com/posts`,
