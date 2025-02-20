@@ -20,13 +20,15 @@ type PostRecord = {
   body: string;
 };
 
+const baseUrl = `https://jsonplaceholder.typicode.com/posts`;
+
 export const postDataProvider: DataProvider = {
   getList: async function <RecordType extends RaRecord = PostRecord>(
     resource: string,
     params: GetListParams & QueryFunctionContext,
   ): Promise<GetListResult<RecordType>> {
     try {
-      const data = await fetch(`https://jsonplaceholder.typicode.com/posts`, {
+      const data = await fetch(baseUrl, {
         method: "GET",
       });
       const { pagination, sort } = params;
@@ -70,12 +72,9 @@ export const postDataProvider: DataProvider = {
     //RecordType for getting the data from db
     try {
       const { id } = params;
-      const data = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${id}`,
-        {
-          method: `GET`,
-        },
-      );
+      const data = await fetch(`${baseUrl}/${id}`, {
+        method: `GET`,
+      });
       const result: GetOneResult = {
         data: (await data.json()) as PostRecord,
       };
@@ -94,16 +93,13 @@ export const postDataProvider: DataProvider = {
     //ResultRecordType for save data
     try {
       const { data } = params;
-      const createdPost = await fetch(
-        `https://jsonplaceholder.typicode.com/posts`,
-        {
-          method: `POST`,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+      const createdPost = await fetch(baseUrl, {
+        method: `POST`,
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(data),
+      });
       const responseData = (await createdPost.json()) as PostRecord;
       const result: CreateResult = {
         data: responseData as PostRecord,
@@ -122,20 +118,17 @@ export const postDataProvider: DataProvider = {
   ): Promise<UpdateResult<ResultRecordType>> {
     try {
       const { data, id } = params;
-      const updatePost = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+      const updatePost = await fetch(`${baseUrl}/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
-      const responseData = await updatePost.json() as PostRecord;
+        body: JSON.stringify(data),
+      });
+      const responseData = (await updatePost.json()) as PostRecord;
       const result: UpdateResult = {
-        data: responseData as PostRecord;
-      }
+        data: responseData as PostRecord,
+      };
       return result;
     } catch (error) {
       throw error;
