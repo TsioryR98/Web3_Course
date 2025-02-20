@@ -116,7 +116,7 @@ export const userDataProvider: DataProvider = {
   update: async function <
     RecordType extends Omit<RaRecord, "id"> = UserRecord,
     ResultRecordType extends RaRecord = RecordType & { id: Identifier },
-  >(
+  >( //ResultRecordType for save data
     resource: string,
     params: UpdateParams,
   ): Promise<UpdateResult<ResultRecordType>> {
