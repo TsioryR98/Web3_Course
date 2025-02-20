@@ -13,17 +13,20 @@ import {
   TextInput,
   NumberInput,
   BooleanInput,
-  SimpleForm
-
+  SimpleForm,
+  Edit,
+  required,
 } from "react-admin";
 import Button from "@mui/material/Button";
+import { RichTextInput } from "ra-input-rich-text";
 
 export const PostList = () => (
   <List>
     <Datagrid>
       <TextField source="id" />
       <TextField source="title" />
-      <ReferenceField source="userId" reference="users" link="show" /> {/*link to User for post  */}
+      <ReferenceField source="userId" reference="users" link="show" />{" "}
+      {/*link to User for post  */}
       {/*Link to userList for users */}
       <EditButton />
       <DeleteButton />
@@ -51,45 +54,21 @@ export const PostShow = () => (
 export const PostCreate = () => (
   <Create>
     <SimpleForm>
-      <TextInput source='title' />
-      <TextInput source='body' multiline={true} label='Short body' />
-      <BooleanInput source='bool' label='Short body' />
-      <NumberInput source='bool' label='Short body' />
+      <TextInput source="title" />
+      <TextInput source="body" multiline={true} label="Short body" />
+      <BooleanInput source="bool" label="Short body" />
+      <NumberInput source="bool" label="Short body" />
     </SimpleForm>
   </Create>
 );
 
-{
-  /**
- 
-    create: async function <RecordType>(
-    resource: string,
-    params: CreateParams
-  ): Promise<CreateResult<RecordType>> {
-    const notify = useNotify(); // Utilisation de useNotify
-
-    try {
-      const { data } = params;
-      const response = await fetch(`https://jsonplaceholder.typicode.com/${resource}`, {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-       },
-        body: JSON.stringify(data),
-      });
-      const result = await response.json();
-
-      notify('Item created successfully!', { type: 'success' });
-
-      return {
-        data: result,
-      };
-    } catch (error) {
-
-    notify('Error creating item', { type: 'error' });
-
-      throw error; 
-  },
-
-  */
-}
+export const PostEdit = () => (
+  <Edit>
+    <SimpleForm>
+      <TextInput disabled label="userId" source="userId" />
+      <TextInput disabled label="Id" source="id" />
+      <TextInput source="title" validate={required()} />
+      <RichTextInput source="body" validate={required()} />
+    </SimpleForm>
+  </Edit>
+);
