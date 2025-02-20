@@ -11,6 +11,9 @@ import {
   Identifier,
   RaRecord,
   QueryFunctionContext,
+  DeleteParams,
+  DeleteResult,
+
 } from "react-admin";
 
 type PostRecord = {
@@ -128,6 +131,28 @@ export const postDataProvider: DataProvider = {
       const responseData = (await updatePost.json()) as PostRecord;
       const result: UpdateResult = {
         data: responseData as PostRecord,
+      };
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  },
+  delete: async function <RecordType extends RaRecord = PostRecord & { id: Identifier }
+  >(
+    resource: string,
+    params: DeleteParams,
+  ): Promise<DeleteResult<RecordType>> {
+    try {
+      const { id } = params;
+      const deleteUser = await fetch(`${baseUrl}/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const responseData = await deleteUser.json() as PostRecord;
+      const result: DeleteResult = {
+        data: responseData,
       };
       return result;
     } catch (error) {
